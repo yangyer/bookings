@@ -6,10 +6,16 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
-function App() {
+function App({listener}) {
+  const [navMsg, setNavMsg] = useState(null) 
+  listener
+    .subscribe('listener', (msg) => setNavMsg(msg.type))
+  
   return (
     <div className="App">
+      <h1>Nav Value: {navMsg}</h1>
       <header className="App-header">
       <Switch>
       <Route path="/" exact>
