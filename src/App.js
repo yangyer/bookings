@@ -10,8 +10,9 @@ import { useEffect, useState } from 'react';
 
 function App({listener}) {
   const [navMsg, setNavMsg] = useState(null) 
-  listener
-    .subscribe('listener', (msg) => setNavMsg(msg.type))
+  if (listener) {
+    listener('navigation', (msg) => setNavMsg(msg))
+  }
   
   return (
     <div className="App">
