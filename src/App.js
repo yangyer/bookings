@@ -4,24 +4,31 @@ import './App.css';
 import {
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-function App({listener}) {
+function App({
+  listener
+}) {
+  const history = useHistory()
   const [navMsg, setNavMsg] = useState(null) 
   if (listener) {
-    listener('navigation', (msg) => setNavMsg(msg))
+    listener('navigation', (msg) => {
+      setNavMsg(msg)
+      //history.push(msg.path)
+    })
   }
   
   return (
     <div className="App">
-      <h1>Nav Value: {navMsg}</h1>
+      <h1>Nav Value: {navMsg && navMsg.path}</h1>
       <header className="App-header">
       <Switch>
-      <Route path="/" exact>
-        <Landing />
-      </Route>
+        <Route path="/" exact>
+          <Landing />
+        </Route>
         <Route path="/zbookings" exact>
           <Bookings />
         </Route>
